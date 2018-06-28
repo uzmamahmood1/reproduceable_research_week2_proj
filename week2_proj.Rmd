@@ -1,0 +1,107 @@
+# Reproduceacble Research
+
+## Library load
+```{r}
+library(ggplot2)
+url <- "/Users/Bruker/Desktop/datascience/reproduceable_research/activity.csv"
+activityData <- read.csv(url)
+head(activityData)
+```
+## aggregate steps per day
+```{r}
+steps <- aggregate(activityData$steps,by=list(Date=activityData$date),sum)
+head(steps)
+```
+## adjust column names
+```{r}
+names(steps)[1]="Date"
+names(steps)[2]="totalSteps"
+head(steps)
+```
+## making histogram of total number of steps taken each day
+```{r}
+hist <- ggplot(data=steps,aes(x=totalSteps))+geom_histogram(binwidth=1000)+labs(title = "Total  Daily Steps", x = "Steps", y = "Frequency")
+print(hist)
+```
+## Mean of steps taken per day
+
+```{r}
+mean(steps$totalSteps,na.rm = TRUE)
+```
+
+## median of steps taken per day
+
+```{r}
+median(steps$totalSteps,na.rm = TRUE)
+```
+
+## what is average activity patteren
+## 1. Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+
+```{r}
+five_min_int <- aggregate(activityData$steps,by=list(activityData$interval),mean,na.rm=TRUE)
+names(five_min_int)[1]="interval"
+names(five_min_int)[2]="steps"
+head(five_min_int)
+plot <- ggplot(data = five_min_int,aes(x=interval,y=steps))+labs(title= "Sum of Steps by Interval", x = "interval", y = "steps")+geom_line(color="green")
+print(plot)
+
+```
+##2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps
+
+```{r}
+maxInterval <- five_min_int[which.max(five_min_int$steps),]
+maxInterval
+```
+## Imputing missing values
+## 1.Calculate and report the total number of missing values in the dataset
+
+```{r}
+missingSteps <- is.na(activityData$steps)
+head(missingSteps)
+total_missing_values <- sum(missingSteps)
+total_missing_values
+```
+## 2.Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+
+```{r}
+library(scales)
+library(Hmisc)
+activityDataImputed <- activityData
+activityDataImputed$steps <- impute(activityData$steps,fun = mean)
+head(activityDataImputed)
+```
+
+## 3.Create a new dataset that is equal to the original dataset but with the missing data filled in.
+```{r}
+stepsByDayImputed <- aggregate(activityDataImputed$steps,by=list(activityDataImputed$date),sum)
+names(stepsByDayImputed)[1]<- "Date"
+names(stepsByDayImputed)[2]<- "steps"
+head(stepsByDayImputed)
+```
+
+## 4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+
+```{r}
+hist <- ggplot(data = stepsByDayImputed,aes(x=steps))+geom_histogram(binwidth = 1000)+labs(title="Total Daily Steps (imputed)",x= "Total steps per day (Imputed)",y= "Frequency")
+print(hist)
+mean(stepsByDayImputed$steps)
+median(stepsByDayImputed$steps)
+
+```
+The mean appears to be unaffected by this simple data imputation. The median is smaller.
+
+##Are there differences in activity patterns between weekdays and weekends?
+```{r}
+activityDataImputed$weekday <- weekdays(as.Date(activityDataImputed$date))
+activityDataImputed$weekend<- ifelse(activityDataImputed$weekday== "Saturday" | activityDataImputed$weekday== "Sunday" , "weekend", "weekday")
+head(activityDataImputed)
+meanData <- aggregate(activityDataImputed$steps,by=list(activityDataImputed$weekend,activityDataImputed$interval),mean)
+head(meanData)
+names(meanData)[1]<- "weekend"
+names(meanData)[2]<- "interval"
+names(meanData)[3]<- "steps"
+ggplot(data = meanData,aes(x=interval,y=steps,color=weekend))+geom_line()+facet_grid(weekend ~ .) + labs(title = "Mean of Steps by Interval", x = "interval", y = "steps")
+```
+There seems to be variation in the beginning of the day during weekdays, likely due to workplace activities. There seems to be an overall slightly larger incidence of steps during the weekends.
+
