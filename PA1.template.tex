@@ -1,0 +1,474 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+
+\begin{document}
+
+\section{Reproduceacble Research}\label{reproduceacble-research}
+
+\subsection{Library load}\label{library-load}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\NormalTok{url <-}\StringTok{ "/Users/Bruker/Desktop/datascience/reproduceable_research/activity.csv"}
+\NormalTok{activityData <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(url)}
+\KeywordTok{head}\NormalTok{(activityData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   steps       date interval
+## 1    NA 2012-10-01        0
+## 2    NA 2012-10-01        5
+## 3    NA 2012-10-01       10
+## 4    NA 2012-10-01       15
+## 5    NA 2012-10-01       20
+## 6    NA 2012-10-01       25
+\end{verbatim}
+
+\subsection{aggregate steps per day}\label{aggregate-steps-per-day}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{steps <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(activityData}\OperatorTok{$}\NormalTok{steps,}\DataTypeTok{by=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{Date=}\NormalTok{activityData}\OperatorTok{$}\NormalTok{date),sum)}
+\KeywordTok{head}\NormalTok{(steps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Date     x
+## 1 2012-10-01    NA
+## 2 2012-10-02   126
+## 3 2012-10-03 11352
+## 4 2012-10-04 12116
+## 5 2012-10-05 13294
+## 6 2012-10-06 15420
+\end{verbatim}
+
+\subsection{adjust column names}\label{adjust-column-names}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(steps)[}\DecValTok{1}\NormalTok{]=}\StringTok{"Date"}
+\KeywordTok{names}\NormalTok{(steps)[}\DecValTok{2}\NormalTok{]=}\StringTok{"totalSteps"}
+\KeywordTok{head}\NormalTok{(steps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Date totalSteps
+## 1 2012-10-01         NA
+## 2 2012-10-02        126
+## 3 2012-10-03      11352
+## 4 2012-10-04      12116
+## 5 2012-10-05      13294
+## 6 2012-10-06      15420
+\end{verbatim}
+
+\subsection{making histogram of total number of steps taken each
+day}\label{making-histogram-of-total-number-of-steps-taken-each-day}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hist <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{steps,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{totalSteps))}\OperatorTok{+}\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth=}\DecValTok{1000}\NormalTok{)}\OperatorTok{+}\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Total  Daily Steps"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Steps"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Frequency"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(hist)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 8 rows containing non-finite values (stat_bin).
+\end{verbatim}
+
+\includegraphics{week2_proj_files/figure-latex/unnamed-chunk-4-1.pdf}
+\#\# Mean of steps taken per day
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(steps}\OperatorTok{$}\NormalTok{totalSteps,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10766.19
+\end{verbatim}
+
+\subsection{median of steps taken per
+day}\label{median-of-steps-taken-per-day}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{median}\NormalTok{(steps}\OperatorTok{$}\NormalTok{totalSteps,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10765
+\end{verbatim}
+
+\subsection{what is average activity
+patteren}\label{what-is-average-activity-patteren}
+
+\subsection{1. Make a time series plot of the 5-minute interval (x-axis)
+and the average number of steps taken, averaged across all days
+(y-axis)}\label{make-a-time-series-plot-of-the-5-minute-interval-x-axis-and-the-average-number-of-steps-taken-averaged-across-all-days-y-axis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{five_min_int <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(activityData}\OperatorTok{$}\NormalTok{steps,}\DataTypeTok{by=}\KeywordTok{list}\NormalTok{(activityData}\OperatorTok{$}\NormalTok{interval),mean,}\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{names}\NormalTok{(five_min_int)[}\DecValTok{1}\NormalTok{]=}\StringTok{"interval"}
+\KeywordTok{names}\NormalTok{(five_min_int)[}\DecValTok{2}\NormalTok{]=}\StringTok{"steps"}
+\KeywordTok{head}\NormalTok{(five_min_int)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   interval     steps
+## 1        0 1.7169811
+## 2        5 0.3396226
+## 3       10 0.1320755
+## 4       15 0.1509434
+## 5       20 0.0754717
+## 6       25 2.0943396
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ five_min_int,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{interval,}\DataTypeTok{y=}\NormalTok{steps))}\OperatorTok{+}\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=} \StringTok{"Sum of Steps by Interval"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"interval"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"steps"}\NormalTok{)}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{color=}\StringTok{"green"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(plot)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{week2_proj_files/figure-latex/unnamed-chunk-7-1.pdf}
+\#\#2. Which 5-minute interval, on average across all the days in the
+dataset, contains the maximum number of steps
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{maxInterval <-}\StringTok{ }\NormalTok{five_min_int[}\KeywordTok{which.max}\NormalTok{(five_min_int}\OperatorTok{$}\NormalTok{steps),]}
+\NormalTok{maxInterval}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     interval    steps
+## 104      835 206.1698
+\end{verbatim}
+
+\subsection{Imputing missing values}\label{imputing-missing-values}
+
+\subsection{1.Calculate and report the total number of missing values in
+the
+dataset}\label{calculate-and-report-the-total-number-of-missing-values-in-the-dataset}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{missingSteps <-}\StringTok{ }\KeywordTok{is.na}\NormalTok{(activityData}\OperatorTok{$}\NormalTok{steps)}
+\KeywordTok{head}\NormalTok{(missingSteps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE TRUE TRUE TRUE TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{total_missing_values <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(missingSteps)}
+\NormalTok{total_missing_values}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2304
+\end{verbatim}
+
+\subsection{2.Devise a strategy for filling in all of the missing values
+in the dataset. The strategy does not need to be sophisticated. For
+example, you could use the mean/median for that day, or the mean for
+that 5-minute interval,
+etc.}\label{devise-a-strategy-for-filling-in-all-of-the-missing-values-in-the-dataset.-the-strategy-does-not-need-to-be-sophisticated.-for-example-you-could-use-the-meanmedian-for-that-day-or-the-mean-for-that-5-minute-interval-etc.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(scales)}
+\KeywordTok{library}\NormalTok{(Hmisc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: survival
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: Formula
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Hmisc'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     format.pval, units
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{activityDataImputed <-}\StringTok{ }\NormalTok{activityData}
+\NormalTok{activityDataImputed}\OperatorTok{$}\NormalTok{steps <-}\StringTok{ }\KeywordTok{impute}\NormalTok{(activityData}\OperatorTok{$}\NormalTok{steps,}\DataTypeTok{fun =}\NormalTok{ mean)}
+\KeywordTok{head}\NormalTok{(activityDataImputed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     steps       date interval
+## 1 37.3826 2012-10-01        0
+## 2 37.3826 2012-10-01        5
+## 3 37.3826 2012-10-01       10
+## 4 37.3826 2012-10-01       15
+## 5 37.3826 2012-10-01       20
+## 6 37.3826 2012-10-01       25
+\end{verbatim}
+
+\subsection{3.Create a new dataset that is equal to the original dataset
+but with the missing data filled
+in.}\label{create-a-new-dataset-that-is-equal-to-the-original-dataset-but-with-the-missing-data-filled-in.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stepsByDayImputed <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(activityDataImputed}\OperatorTok{$}\NormalTok{steps,}\DataTypeTok{by=}\KeywordTok{list}\NormalTok{(activityDataImputed}\OperatorTok{$}\NormalTok{date),sum)}
+\KeywordTok{names}\NormalTok{(stepsByDayImputed)[}\DecValTok{1}\NormalTok{]<-}\StringTok{ "Date"}
+\KeywordTok{names}\NormalTok{(stepsByDayImputed)[}\DecValTok{2}\NormalTok{]<-}\StringTok{ "steps"}
+\KeywordTok{head}\NormalTok{(stepsByDayImputed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Date    steps
+## 1 2012-10-01 10766.19
+## 2 2012-10-02   126.00
+## 3 2012-10-03 11352.00
+## 4 2012-10-04 12116.00
+## 5 2012-10-05 13294.00
+## 6 2012-10-06 15420.00
+\end{verbatim}
+
+\subsection{4.Make a histogram of the total number of steps taken each
+day and Calculate and report the mean and median total number of steps
+taken per day. Do these values differ from the estimates from the first
+part of the assignment? What is the impact of imputing missing data on
+the estimates of the total daily number of
+steps?}\label{make-a-histogram-of-the-total-number-of-steps-taken-each-day-and-calculate-and-report-the-mean-and-median-total-number-of-steps-taken-per-day.-do-these-values-differ-from-the-estimates-from-the-first-part-of-the-assignment-what-is-the-impact-of-imputing-missing-data-on-the-estimates-of-the-total-daily-number-of-steps}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hist <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ stepsByDayImputed,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{steps))}\OperatorTok{+}\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \DecValTok{1000}\NormalTok{)}\OperatorTok{+}\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\StringTok{"Total Daily Steps (imputed)"}\NormalTok{,}\DataTypeTok{x=} \StringTok{"Total steps per day (Imputed)"}\NormalTok{,}\DataTypeTok{y=} \StringTok{"Frequency"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(hist)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{week2_proj_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(stepsByDayImputed}\OperatorTok{$}\NormalTok{steps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10766.19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{median}\NormalTok{(stepsByDayImputed}\OperatorTok{$}\NormalTok{steps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10766.19
+\end{verbatim}
+
+The mean appears to be unaffected by this simple data imputation. The
+median is smaller.
+
+\subsection{Are there differences in activity patterns between weekdays
+and
+weekends?}\label{are-there-differences-in-activity-patterns-between-weekdays-and-weekends}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{activityDataImputed}\OperatorTok{$}\NormalTok{weekday <-}\StringTok{ }\KeywordTok{weekdays}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(activityDataImputed}\OperatorTok{$}\NormalTok{date))}
+\NormalTok{activityDataImputed}\OperatorTok{$}\NormalTok{weekend<-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(activityDataImputed}\OperatorTok{$}\NormalTok{weekday}\OperatorTok{==}\StringTok{ "Saturday"} \OperatorTok{|}\StringTok{ }\NormalTok{activityDataImputed}\OperatorTok{$}\NormalTok{weekday}\OperatorTok{==}\StringTok{ "Sunday"}\NormalTok{ , }\StringTok{"weekend"}\NormalTok{, }\StringTok{"weekday"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(activityDataImputed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     steps       date interval weekday weekend
+## 1 37.3826 2012-10-01        0  Monday weekday
+## 2 37.3826 2012-10-01        5  Monday weekday
+## 3 37.3826 2012-10-01       10  Monday weekday
+## 4 37.3826 2012-10-01       15  Monday weekday
+## 5 37.3826 2012-10-01       20  Monday weekday
+## 6 37.3826 2012-10-01       25  Monday weekday
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{meanData <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(activityDataImputed}\OperatorTok{$}\NormalTok{steps,}\DataTypeTok{by=}\KeywordTok{list}\NormalTok{(activityDataImputed}\OperatorTok{$}\NormalTok{weekend,activityDataImputed}\OperatorTok{$}\NormalTok{interval),mean)}
+\KeywordTok{head}\NormalTok{(meanData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Group.1 Group.2        x
+## 1 weekday       0 7.006569
+## 2 weekend       0 4.672825
+## 3 weekday       5 5.384347
+## 4 weekend       5 4.672825
+## 5 weekday      10 5.139902
+## 6 weekend      10 4.672825
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(meanData)[}\DecValTok{1}\NormalTok{]<-}\StringTok{ "weekend"}
+\KeywordTok{names}\NormalTok{(meanData)[}\DecValTok{2}\NormalTok{]<-}\StringTok{ "interval"}
+\KeywordTok{names}\NormalTok{(meanData)[}\DecValTok{3}\NormalTok{]<-}\StringTok{ "steps"}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ meanData,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{interval,}\DataTypeTok{y=}\NormalTok{steps,}\DataTypeTok{color=}\NormalTok{weekend))}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{()}\OperatorTok{+}\KeywordTok{facet_grid}\NormalTok{(weekend }\OperatorTok{~}\StringTok{ }\NormalTok{.) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Mean of Steps by Interval"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"interval"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"steps"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{week2_proj_files/figure-latex/unnamed-chunk-13-1.pdf}
+There seems to be variation in the beginning of the day during weekdays,
+likely due to workplace activities. There seems to be an overall
+slightly larger incidence of steps during the weekends.
+
+
+\end{document}
